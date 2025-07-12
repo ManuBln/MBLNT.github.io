@@ -14,18 +14,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow-x: hidden;
     }
 
     .terminal-window {
       background-color: #000;
       border: 2px solid #00ff00;
       box-shadow: 0 0 20px #00ff00;
-      width: 700px;
-      max-width: 90%;
+      width: 800px;
+      max-width: 95%;
       padding: 0;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
 
     .terminal-header {
@@ -41,106 +41,100 @@
       font-size: 1.2rem;
     }
 
-    .terminal-buttons {
-      display: flex;
-      gap: 6px;
-    }
-
     .terminal-buttons span {
       display: inline-block;
       width: 10px;
       height: 10px;
       background-color: #00ff00;
       border-radius: 50%;
+      margin-left: 5px;
     }
 
     .terminal-body {
-      padding: 30px 20px;
+      padding: 40px 30px;
       text-align: center;
     }
 
     h1 {
-      font-size: 9rem;
+      font-size: 8rem;
       margin: 0;
-      display: flex;
-      justify-content: center;
+      text-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00, 0 0 30px #00ff00;
+    }
+
+    .dropdown {
       position: relative;
-      text-shadow:
-        0 0 5px #00ff00,
-        0 0 15px #00ff00,
-        0 0 30px #00ff00,
-        0 0 60px #00ff00;
-    }
-
-    h1 span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(-100px);
-      animation: drop 0.6s forwards;
-      margin: 0 0.05em;
-    }
-
-    h1 span:nth-child(1) { animation-delay: 0s; }
-    h1 span:nth-child(2) { animation-delay: 0.2s; }
-    h1 span:nth-child(3) { animation-delay: 0.4s; }
-    h1 span:nth-child(4) { animation-delay: 0.6s; }
-    h1 span:nth-child(5) { animation-delay: 0.8s; }
-
-    h1::after {
-      content: "_";
-      position: absolute;
-      top: 0;
-      left: calc(100% + 0.1em);
-      font-size: 9rem;
-      color: #00ff00;
-      text-shadow:
-        0 0 5px #00ff00,
-        0 0 15px #00ff00,
-        0 0 30px #00ff00;
-      opacity: 0;
-      animation: blink 1.2s steps(1) infinite;
-      animation-delay: 1.4s;
-      animation-fill-mode: forwards;
-    }
-
-    @keyframes drop {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    a {
       display: inline-block;
       margin-top: 30px;
+    }
+
+    .dropdown a.main-link {
       color: #00ff00;
       text-decoration: none;
-      font-size: 1rem;
-      padding: 4px 12px;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border: 2px solid #00ff00;
       transition: 0.3s;
+      border-radius: 6px;
+      background-color: transparent;
+      cursor: pointer;
+      display: inline-block;
     }
 
-    a:hover {
+    .dropdown a.main-link:hover {
       color: black;
       background-color: #00ff00;
-      box-shadow: 0 0 10px #00ff00;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #001100;
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 20px #00ff00;
+      padding: 15px;
+      margin-top: 8px;
+      min-width: 280px;
+      z-index: 2;
+      text-align: left;
+      border-radius: 6px;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dropdown.active .dropdown-content {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+      color: #00ff00;
+      border-bottom: 1px solid #00ff00;
+      padding-bottom: 5px;
+    }
+
+    .pdf-link, .simple-link {
+      background-color: #003300;
+      border: 1px solid #00ff00;
       border-radius: 4px;
+      padding: 8px 12px;
+      margin: 6px 0;
+      display: block;
+      color: #00ff00;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 1rem;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 4.5rem;
-      }
-
-      h1::after {
-        font-size: 4.5rem;
-      }
+    .pdf-link:hover, .simple-link:hover {
+      background-color: #00ff00;
+      color: black;
+      transform: translateX(5px);
     }
+
   </style>
 </head>
 <body>
@@ -148,17 +142,39 @@
     <div class="terminal-header">
       <div class="terminal-title">~/MBLNT</div>
       <div class="terminal-buttons">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
     </div>
     <div class="terminal-body">
-      <h1>
-        <span>M</span><span>B</span><span>L</span><span>N</span><span>T</span>
-      </h1>
-      <a href="writeups.html">Ver Writeups</a>
+      <h1>MBLNT</h1>
+
+      <div class="dropdown" id="writeupDropdown">
+        <a href="#" class="main-link" onclick="toggleDropdown(event)">📂 Ver Write-Ups</a>
+        <div class="dropdown-content">
+          <div class="section-title">TryHackMe</div>
+          <a href="Pickle_Rick.pdf" target="_blank" class="pdf-link">📝 Pickle Rick</a>
+          <div class="section-title">HackTheBox</div>
+          <!-- apartado vacío -->
+        </div>
+      </div>
+
     </div>
   </div>
+
+  <script>
+    function toggleDropdown(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const dropdown = document.getElementById('writeupDropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById('writeupDropdown');
+      if (!dropdown.contains(event.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>
