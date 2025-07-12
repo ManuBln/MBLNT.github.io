@@ -55,10 +55,46 @@
       text-align: center;
     }
 
-    h1 {
+    /* Animación caída letras */
+    @keyframes drop {
+      0% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .letter {
+      display: inline-block;
+      opacity: 0;
+      animation: drop 0.4s forwards;
       font-size: 8rem;
-      margin: 0;
       text-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00, 0 0 30px #00ff00;
+      line-height: 1;
+    }
+
+    /* Cursor parpadeante más pequeño y centrado */
+    .blink {
+      display: inline-block;
+      margin-left: 5px;
+      width: 10px;
+      height: 1.2em;
+      background-color: #00ff00;
+      animation: blink 0.8s infinite;
+      vertical-align: middle;
+      line-height: 1.2em;
+    }
+
+    @keyframes blink {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.1%, 100% {
+        opacity: 0;
+      }
     }
 
     .dropdown {
@@ -134,7 +170,6 @@
       color: black;
       transform: translateX(5px);
     }
-
   </style>
 </head>
 <body>
@@ -146,7 +181,7 @@
       </div>
     </div>
     <div class="terminal-body">
-      <h1>MBLNT</h1>
+      <div id="animatedTitle"></div>
 
       <div class="dropdown" id="writeupDropdown">
         <a href="#" class="main-link" onclick="toggleDropdown(event)">📂 Ver Write-Ups</a>
@@ -157,7 +192,6 @@
           <!-- apartado vacío -->
         </div>
       </div>
-
     </div>
   </div>
 
@@ -175,6 +209,23 @@
         dropdown.classList.remove('active');
       }
     });
+
+    // Animación de caída letras y cursor parpadeante
+    const titleText = "MBLNT";
+    const titleContainer = document.getElementById("animatedTitle");
+
+    [...titleText].forEach((char, index) => {
+      const span = document.createElement("span");
+      span.className = "letter";
+      span.textContent = char;
+      span.style.animationDelay = `${index * 0.2}s`;
+      titleContainer.appendChild(span);
+    });
+
+    // Añadir cursor parpadeante al final
+    const cursor = document.createElement("span");
+    cursor.className = "blink";
+    titleContainer.appendChild(cursor);
   </script>
 </body>
 </html>
