@@ -55,7 +55,6 @@
       text-align: center;
     }
 
-    /* Animación caída letras */
     @keyframes drop {
       0% {
         opacity: 0;
@@ -76,7 +75,6 @@
       line-height: 1;
     }
 
-    /* Cursor parpadeante más pequeño y centrado */
     .blink {
       display: inline-block;
       margin-left: 5px;
@@ -188,8 +186,13 @@
         <div class="dropdown-content">
           <div class="section-title">TryHackMe</div>
           <a href="Pickle_Rick.pdf" target="_blank" class="pdf-link">📝 Pickle Rick</a>
+          <a href="RootMe.pdf" target="_blank" class="pdf-link">📝 RootMe</a>
+          <a href="Kenobi.pdf" target="_blank" class="pdf-link">📝 Kenobi</a>
+
           <div class="section-title">HackTheBox</div>
-          <!-- apartado vacío -->
+          <a href="lame.pdf" target="_blank" class="pdf-link">📝 Lame</a>
+          <a href="shocker.pdf" target="_blank" class="pdf-link">📝 Shocker</a>
+          <a href="Sense.pdf" target="_blank" class="pdf-link">📝 Sense</a>
         </div>
       </div>
     </div>
@@ -210,7 +213,6 @@
       }
     });
 
-    // Animación de caída letras y cursor parpadeante
     const titleText = "MBLNT";
     const titleContainer = document.getElementById("animatedTitle");
 
@@ -222,7 +224,6 @@
       titleContainer.appendChild(span);
     });
 
-    // Añadir cursor parpadeante al final
     const cursor = document.createElement("span");
     cursor.className = "blink";
     titleContainer.appendChild(cursor);
